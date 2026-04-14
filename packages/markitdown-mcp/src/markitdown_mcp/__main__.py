@@ -17,21 +17,20 @@ import uvicorn
 mcp = FastMCP("markitdown")
 
 
-@mcp.tool()
-async def convert_to_markdown(
+def _convert_uri(
     uri: str,
-    extract_images: bool = False,
-    images_output_dir: str = None,
+    extract_images: bool = True,
+    images_output_dir: str = "./images",
     images_prefix: str = "img",
     output_markdown_path: str = None,
 ) -> str:
-    """Convert a resource described by an http:, https:, file: or data: URI to markdown.
+    """Internal helper to convert a URI to markdown.
 
     Args:
         uri: The URI of the resource to convert (http:, https:, file: or data:).
         extract_images: Whether to extract images from the document to a folder.
         images_output_dir: Output directory for extracted images.
-        images_prefix: Prefix for extracted image filenames. (default: img)
+        images_prefix: Prefix for extracted image filenames.
         output_markdown_path: If provided, save the markdown to this file path.
     """
     result = MarkItDown(enable_plugins=check_plugins_enabled()).convert_uri(
@@ -47,6 +46,228 @@ async def convert_to_markdown(
             f.write(result.markdown)
 
     return result.markdown
+
+
+@mcp.tool()
+async def docx_to_markdown(
+    uri: str,
+    extract_images: bool = True,
+    images_output_dir: str = "./images",
+    images_prefix: str = "img",
+    output_markdown_path: str = None,
+) -> str:
+    """Convert DOCX (Word) files to markdown. Supports extracting images.
+
+    Args:
+        uri: The URI of the resource (http:, https:, file: or data:).
+        extract_images: Whether to extract images from the document (default: True).
+        images_output_dir: Output directory for extracted images (default: ./images).
+        images_prefix: Prefix for extracted image filenames (default: img).
+        output_markdown_path: If provided, save the markdown to this file path.
+    """
+    return _convert_uri(uri, extract_images, images_output_dir, images_prefix, output_markdown_path)
+
+
+@mcp.tool()
+async def pdf_to_markdown(
+    uri: str,
+    extract_images: bool = True,
+    images_output_dir: str = "./images",
+    images_prefix: str = "img",
+    output_markdown_path: str = None,
+) -> str:
+    """Convert PDF files to markdown. Supports extracting images.
+
+    Args:
+        uri: The URI of the resource (http:, https:, file: or data:).
+        extract_images: Whether to extract images from the document (default: True).
+        images_output_dir: Output directory for extracted images (default: ./images).
+        images_prefix: Prefix for extracted image filenames (default: img).
+        output_markdown_path: If provided, save the markdown to this file path.
+    """
+    return _convert_uri(uri, extract_images, images_output_dir, images_prefix, output_markdown_path)
+
+
+@mcp.tool()
+async def xlsx_to_markdown(
+    uri: str,
+    extract_images: bool = True,
+    images_output_dir: str = "./images",
+    images_prefix: str = "img",
+    output_markdown_path: str = None,
+) -> str:
+    """Convert XLSX (Excel) files to markdown. Supports extracting embedded images.
+
+    Args:
+        uri: The URI of the resource (http:, https:, file: or data:).
+        extract_images: Whether to extract images from the document (default: True).
+        images_output_dir: Output directory for extracted images (default: ./images).
+        images_prefix: Prefix for extracted image filenames (default: img).
+        output_markdown_path: If provided, save the markdown to this file path.
+    """
+    return _convert_uri(uri, extract_images, images_output_dir, images_prefix, output_markdown_path)
+
+
+@mcp.tool()
+async def pptx_to_markdown(
+    uri: str,
+    extract_images: bool = True,
+    images_output_dir: str = "./images",
+    images_prefix: str = "img",
+    output_markdown_path: str = None,
+) -> str:
+    """Convert PPTX (PowerPoint) files to markdown. Supports extracting images.
+
+    Args:
+        uri: The URI of the resource (http:, https:, file: or data:).
+        extract_images: Whether to extract images from the document (default: True).
+        images_output_dir: Output directory for extracted images (default: ./images).
+        images_prefix: Prefix for extracted image filenames (default: img).
+        output_markdown_path: If provided, save the markdown to this file path.
+    """
+    return _convert_uri(uri, extract_images, images_output_dir, images_prefix, output_markdown_path)
+
+
+@mcp.tool()
+async def html_to_markdown(
+    uri: str,
+    extract_images: bool = True,
+    images_output_dir: str = "./images",
+    images_prefix: str = "img",
+    output_markdown_path: str = None,
+) -> str:
+    """Convert HTML files to markdown. Supports extracting images.
+
+    Args:
+        uri: The URI of the resource (http:, https:, file: or data:).
+        extract_images: Whether to extract images from the document (default: True).
+        images_output_dir: Output directory for extracted images (default: ./images).
+        images_prefix: Prefix for extracted image filenames (default: img).
+        output_markdown_path: If provided, save the markdown to this file path.
+    """
+    return _convert_uri(uri, extract_images, images_output_dir, images_prefix, output_markdown_path)
+
+
+@mcp.tool()
+async def image_to_markdown(
+    uri: str,
+    extract_images: bool = True,
+    images_output_dir: str = "./images",
+    images_prefix: str = "img",
+    output_markdown_path: str = None,
+) -> str:
+    """Convert image files to markdown (using OCR). Supports PNG, JPG, GIF, BMP, WEBP.
+
+    Args:
+        uri: The URI of the resource (http:, https:, file: or data:).
+        extract_images: Whether to extract/OCR images (default: True).
+        images_output_dir: Output directory for extracted images (default: ./images).
+        images_prefix: Prefix for extracted image filenames (default: img).
+        output_markdown_path: If provided, save the markdown to this file path.
+    """
+    return _convert_uri(uri, extract_images, images_output_dir, images_prefix, output_markdown_path)
+
+
+@mcp.tool()
+async def text_to_markdown(
+    uri: str,
+    extract_images: bool = True,
+    images_output_dir: str = "./images",
+    images_prefix: str = "img",
+    output_markdown_path: str = None,
+) -> str:
+    """Convert plain text files to markdown.
+
+    Args:
+        uri: The URI of the resource (http:, https:, file: or data:).
+        extract_images: Whether to extract images (default: True).
+        images_output_dir: Output directory for extracted images (default: ./images).
+        images_prefix: Prefix for extracted image filenames (default: img).
+        output_markdown_path: If provided, save the markdown to this file path.
+    """
+    return _convert_uri(uri, extract_images, images_output_dir, images_prefix, output_markdown_path)
+
+
+@mcp.tool()
+async def markdown_to_markdown(
+    uri: str,
+    extract_images: bool = True,
+    images_output_dir: str = "./images",
+    images_prefix: str = "img",
+    output_markdown_path: str = None,
+) -> str:
+    """Convert Markdown files (outputs as-is with image extraction if needed).
+
+    Args:
+        uri: The URI of the resource (http:, https:, file: or data:).
+        extract_images: Whether to extract images (default: True).
+        images_output_dir: Output directory for extracted images (default: ./images).
+        images_prefix: Prefix for extracted image filenames (default: img).
+        output_markdown_path: If provided, save the markdown to this file path.
+    """
+    return _convert_uri(uri, extract_images, images_output_dir, images_prefix, output_markdown_path)
+
+
+@mcp.tool()
+async def epub_to_markdown(
+    uri: str,
+    extract_images: bool = True,
+    images_output_dir: str = "./images",
+    images_prefix: str = "img",
+    output_markdown_path: str = None,
+) -> str:
+    """Convert EPUB ebooks to markdown. Supports extracting images.
+
+    Args:
+        uri: The URI of the resource (http:, https:, file: or data:).
+        extract_images: Whether to extract images from the document (default: True).
+        images_output_dir: Output directory for extracted images (default: ./images).
+        images_prefix: Prefix for extracted image filenames (default: img).
+        output_markdown_path: If provided, save the markdown to this file path.
+    """
+    return _convert_uri(uri, extract_images, images_output_dir, images_prefix, output_markdown_path)
+
+
+@mcp.tool()
+async def csv_to_markdown(
+    uri: str,
+    extract_images: bool = True,
+    images_output_dir: str = "./images",
+    images_prefix: str = "img",
+    output_markdown_path: str = None,
+) -> str:
+    """Convert CSV files to markdown tables.
+
+    Args:
+        uri: The URI of the resource (http:, https:, file: or data:).
+        extract_images: Whether to extract images (default: True).
+        images_output_dir: Output directory for extracted images (default: ./images).
+        images_prefix: Prefix for extracted image filenames (default: img).
+        output_markdown_path: If provided, save the markdown to this file path.
+    """
+    return _convert_uri(uri, extract_images, images_output_dir, images_prefix, output_markdown_path)
+
+
+@mcp.tool()
+async def convert_to_markdown(
+    uri: str,
+    extract_images: bool = True,
+    images_output_dir: str = "./images",
+    images_prefix: str = "img",
+    output_markdown_path: str = None,
+) -> str:
+    """Convert any supported file (docx, pdf, xlsx, pptx, html, image, text, epub, csv, etc.) to markdown.
+
+    This is a universal converter that auto-detects the file type.
+
+    Args:
+        uri: The URI of the resource to convert (http:, https:, file: or data:).
+        extract_images: Whether to extract images from the document (default: True).
+        images_output_dir: Output directory for extracted images (default: ./images).
+        images_prefix: Prefix for extracted image filenames (default: img).
+        output_markdown_path: If provided, save the markdown to this file path.
+    """
+    return _convert_uri(uri, extract_images, images_output_dir, images_prefix, output_markdown_path)
 
 
 def check_plugins_enabled() -> bool:
