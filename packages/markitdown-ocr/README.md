@@ -1,5 +1,7 @@
 # MarkItDown OCR Plugin
 
+[中文版](./README_zh.md) | English
+
 LLM Vision plugin for MarkItDown that extracts text from images embedded in PDF, DOCX, PPTX, and XLSX files.
 
 Uses the same `llm_client` / `llm_model` pattern that MarkItDown already supports for image descriptions — no new ML libraries or binary dependencies required.
