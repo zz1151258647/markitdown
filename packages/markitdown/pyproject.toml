@@ -5,13 +5,16 @@ build-backend = "hatchling.build"
 [project]
 name = "markitdown"
 dynamic = ["version"]
-description = 'Utility tool for converting various files to Markdown'
+description = 'Enhanced DOCX/XLSX to Markdown converter with rowspan support and image extraction'
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
 keywords = []
 authors = [
   { name = "Adam Fourney", email = "adamfo@microsoft.com" },
+]
+maintainers = [
+  { name = "zz1151258647" },
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -60,9 +63,10 @@ youtube-transcription = ["youtube-transcript-api"]
 az-doc-intel = ["azure-ai-documentintelligence", "azure-identity"]
 
 [project.urls]
-Documentation = "https://github.com/microsoft/markitdown#readme"
-Issues = "https://github.com/microsoft/markitdown/issues"
-Source = "https://github.com/microsoft/markitdown"
+Homepage = "https://github.com/zz1151258647/markitdown"
+Documentation = "https://github.com/zz1151258647/markitdown#readme"
+Issues = "https://github.com/zz1151258647/markitdown/issues"
+Source = "https://github.com/zz1151258647/markitdown"
 
 [tool.hatch.version]
 path = "src/markitdown/__about__.py"
