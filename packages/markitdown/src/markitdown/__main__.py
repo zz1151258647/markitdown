@@ -110,6 +110,27 @@ def main():
         help="Keep data URIs (like base64-encoded images) in the output. By default, data URIs are truncated.",
     )
 
+    parser.add_argument(
+        "-i",
+        "--extract-images",
+        action="store_true",
+        help="Extract images from the document to a folder.",
+    )
+
+    parser.add_argument(
+        "--images-output-dir",
+        type=str,
+        default=None,
+        help="Output directory for extracted images.",
+    )
+
+    parser.add_argument(
+        "--images-prefix",
+        type=str,
+        default="img",
+        help="Prefix for extracted image filenames. (default: img)",
+    )
+
     parser.add_argument("filename", nargs="?")
     args = parser.parse_args()
 
@@ -191,10 +212,18 @@ def main():
             sys.stdin.buffer,
             stream_info=stream_info,
             keep_data_uris=args.keep_data_uris,
+            extract_images=args.extract_images,
+            images_output_dir=args.images_output_dir,
+            images_prefix=args.images_prefix,
         )
     else:
         result = markitdown.convert(
-            args.filename, stream_info=stream_info, keep_data_uris=args.keep_data_uris
+            args.filename,
+            stream_info=stream_info,
+            keep_data_uris=args.keep_data_uris,
+            extract_images=args.extract_images,
+            images_output_dir=args.images_output_dir,
+            images_prefix=args.images_prefix,
         )
 
     _handle_output(args, result)

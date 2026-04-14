@@ -18,9 +18,35 @@ mcp = FastMCP("markitdown")
 
 
 @mcp.tool()
-async def convert_to_markdown(uri: str) -> str:
-    """Convert a resource described by an http:, https:, file: or data: URI to markdown"""
-    return MarkItDown(enable_plugins=check_plugins_enabled()).convert_uri(uri).markdown
+async def convert_to_markdown(
+    uri: str,
+    extract_images: bool = False,
+    images_output_dir: str = None,
+    images_prefix: str = "img",
+    output_markdown_path: str = None,
+) -> str:
+    """Convert a resource described by an http:, https:, file: or data: URI to markdown.
+
+    Args:
+        uri: The URI of the resource to convert (http:, https:, file: or data:).
+        extract_images: Whether to extract images from the document to a folder.
+        images_output_dir: Output directory for extracted images.
+        images_prefix: Prefix for extracted image filenames. (default: img)
+        output_markdown_path: If provided, save the markdown to this file path.
+    """
+    result = MarkItDown(enable_plugins=check_plugins_enabled()).convert_uri(
+        uri,
+        extract_images=extract_images,
+        images_output_dir=images_output_dir,
+        images_prefix=images_prefix,
+    )
+
+    if output_markdown_path:
+        os.makedirs(os.path.dirname(output_markdown_path) or ".", exist_ok=True)
+        with open(output_markdown_path, "w", encoding="utf-8") as f:
+            f.write(result.markdown)
+
+    return result.markdown
 
 
 def check_plugins_enabled() -> bool:
