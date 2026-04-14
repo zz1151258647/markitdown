@@ -60,7 +60,10 @@
       "Bash(powershell:*)",
       "Bash(ls:*)",
       "Bash(powershell.exe:*)",
-      "mcp__markitdown__convert_to_markdown"
+      "mcp__markitdown__convert_to_markdown",
+      "Bash(mv README.md README_en.md)",
+      "Bash(mv README_zh.md README.md)",
+      "Bash(mv README_en.md README_zh.md)"
     ]
   }
 }

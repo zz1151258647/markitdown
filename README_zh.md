@@ -1,69 +1,74 @@
 # MarkItDown
 
-[English](./README.md) | 中文版
+English | [中文版](./README.md)
 
 [![PyPI](https://img.shields.io/pypi/v/markitdown.svg)](https://pypi.org/project/markitdown/)
 ![PyPI - Downloads](https://img.shields.io/pypi/dd/markitdown)
 [![Built by AutoGen Team](https://img.shields.io/badge/Built%20by-AutoGen%20Team-blue)](https://github.com/microsoft/autogen)
 
 > [!TIP]
-> MarkItDown 现已提供 MCP（Model Context Protocol）服务器，可与 Claude Desktop 等 LLM 应用集成。详见 [markitdown-mcp](https://github.com/microsoft/markitdown/tree/main/packages/markitdown-mcp)。
+> MarkItDown now offers an MCP (Model Context Protocol) server for integration with LLM applications like Claude Desktop. See [markitdown-mcp](https://github.com/microsoft/markitdown/tree/main/packages/markitdown-mcp) for more information.
 
 > [!IMPORTANT]
-> 0.0.1 到 0.1.0 之间的重大变更：
-> * 依赖项现已按可选功能组组织（详见下文）。使用 `pip install 'markitdown[all]'` 可获得向后兼容的行为。
-> * `convert_stream()` 现要求二进制文件对象（例如以二进制模式打开的文件或 `io.BytesIO` 对象）。这与之前的版本相比是重大变更，之前它也接受文本文件对象，如 `io.StringIO`。
-> * DocumentConverter 类的接口已更改，改为从文件类流读取而非文件路径。**不再创建临时文件**。如果您是插件维护者或自定义 DocumentConverter 的开发者，您可能需要更新代码。否则，如果您只使用 MarkItDown 类或 CLI（如此处示例所示），则无需更改任何内容。
+> Breaking changes between 0.0.1 to 0.1.0:
+> * Dependencies are now organized into optional feature-groups (further details below). Use `pip install 'markitdown[all]'` to have backward-compatible behavior.
+> * convert\_stream() now requires a binary file-like object (e.g., a file opened in binary mode, or an io.BytesIO object). This is a breaking change from the previous version, where it previously also accepted text file-like objects, like io.StringIO.
+> * The DocumentConverter class interface has changed to read from file-like streams rather than file paths. *No temporary files are created anymore*. If you are the maintainer of a plugin, or custom DocumentConverter, you likely need to update your code. Otherwise, if only using the MarkItDown class or CLI (as in these examples), you should not need to change anything.
 
-MarkItDown 是一个轻量级的 Python 工具，用于将各种文件转换为 Markdown 格式，以便在 LLM 和相关文本分析流程中使用。为此，它最类似于 [textract](https://github.com/deanmalmgren/textract)，但专注于将重要文档结构和内容保留为 Markdown 格式（包括：标题、列表、表格、链接等）。虽然输出通常相当可观且对人类友好，但它旨在供文本分析工具使用——对于人工消费的高保真文档转换可能不是最佳选择。
+MarkItDown is a lightweight Python utility for converting various files to Markdown for use with LLMs and related text analysis pipelines. To this end, it is most comparable to [textract](https://github.com/deanmalmgren/textract), but with a focus on preserving important document structure and content as Markdown (including: headings, lists, tables, links, etc.) While the output is often reasonably presentable and human-friendly, it is meant to be consumed by text analysis tools -- and may not be the best option for high-fidelity document conversions for human consumption.
 
-MarkItDown 目前支持以下格式的转换：
+MarkItDown currently supports the conversion from:
 
 - PDF
 - PowerPoint
 - Word
 - Excel
-- 图片（EXIF 元数据和 OCR）
-- 音频（EXIF 元数据和语音转录）
+- Images (EXIF metadata and OCR)
+- Audio (EXIF metadata and speech transcription)
 - HTML
-- 基于文本的格式（CSV、JSON、XML）
-- ZIP 文件（遍历内容）
-- Youtube 链接
+- Text-based formats (CSV, JSON, XML)
+- ZIP files (iterates over contents)
+- Youtube URLs
 - EPubs
-- ……还有更多！
+- ... and more!
 
-## 为什么选择 Markdown？
+## Why Markdown?
 
-Markdown 与纯文本非常接近，标记或格式最少，但仍然提供了一种表示重要文档结构的方法。主流 LLM（如 OpenAI 的 GPT-4o）本身就能"理解"Markdown，并且经常在未提示的情况下将 Markdown 融入其响应中。这表明它们已在大量 Markdown 格式的文本上进行了训练，并且能够很好地理解 Markdown。作为附带好处，Markdown 约定也具有很高的 token 效率。
+Markdown is extremely close to plain text, with minimal markup or formatting, but still
+provides a way to represent important document structure. Mainstream LLMs, such as
+OpenAI's GPT-4o, natively "_speak_" Markdown, and often incorporate Markdown into their
+responses unprompted. This suggests that they have been trained on vast amounts of
+Markdown-formatted text, and understand it well. As a side benefit, Markdown conventions
+are also highly token-efficient.
 
-## 前提条件
-MarkItDown 需要 Python 3.10 或更高版本。建议使用虚拟环境以避免依赖冲突。
+## Prerequisites
+MarkItDown requires Python 3.10 or higher. It is recommended to use a virtual environment to avoid dependency conflicts.
 
-使用标准 Python 安装，可以使用以下命令创建和激活虚拟环境：
+With the standard Python installation, you can create and activate a virtual environment using the following commands:
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 ```
 
-如果使用 `uv`，可以使用以下命令创建虚拟环境：
+If using `uv`, you can create a virtual environment with:
 
 ```bash
 uv venv --python=3.12 .venv
 source .venv/bin/activate
-# 注意：在此虚拟环境中安装包时请务必使用 'uv pip install' 而非仅使用 'pip install'
+# NOTE: Be sure to use 'uv pip install' rather than just 'pip install' to install packages in this virtual environment
 ```
 
-如果您使用 Anaconda，可以使用以下命令创建虚拟环境：
+If you are using Anaconda, you can create a virtual environment with:
 
 ```bash
 conda create -n markitdown python=3.12
 conda activate markitdown
 ```
 
-## 安装
+## Installation
 
-要安装 MarkItDown，请使用 pip：`pip install 'markitdown[all]'`。或者，您也可以从源代码安装：
+To install MarkItDown, use pip: `pip install 'markitdown[all]'`. Alternatively, you can install it from the source:
 
 ```bash
 git clone git@github.com:microsoft/markitdown.git
@@ -71,78 +76,78 @@ cd markitdown
 pip install -e 'packages/markitdown[all]'
 ```
 
-## 使用方法
+## Usage
 
-### 命令行
+### Command-Line
 
 ```bash
 markitdown path-to-file.pdf > document.md
 ```
 
-或使用 `-o` 指定输出文件：
+Or use `-o` to specify the output file:
 
 ```bash
 markitdown path-to-file.pdf -o document.md
 ```
 
-您也可以通过管道传输内容：
+You can also pipe content:
 
 ```bash
 cat path-to-file.pdf | markitdown
 ```
 
-### 可选依赖项
-MarkItDown 具有可选依赖项，用于激活各种文件格式。在本文档的前面部分，我们使用 `[all]` 选项安装了所有可选依赖项。但是，您也可以单独安装它们以获得更多控制。例如：
+### Optional Dependencies
+MarkItDown has optional dependencies for activating various file formats. Earlier in this document, we installed all optional dependencies with the `[all]` option. However, you can also install them individually for more control. For example:
 
 ```bash
 pip install 'markitdown[pdf, docx, pptx]'
 ```
 
-将仅安装 PDF、DOCX 和 PPTX 文件的依赖项。
+will install only the dependencies for PDF, DOCX, and PPTX files.
 
-目前有以下可选依赖项可用：
+At the moment, the following optional dependencies are available:
 
-* `[all]` 安装所有可选依赖项
-* `[pptx]` 安装 PowerPoint 文件的依赖项
-* `[docx]` 安装 Word 文件的依赖项
-* `[xlsx]` 安装 Excel 文件的依赖项
-* `[xls]` 安装旧版 Excel 文件的依赖项
-* `[pdf]` 安装 PDF 文件的依赖项
-* `[outlook]` 安装 Outlook 邮件的依赖项
-* `[az-doc-intel]` 安装 Azure 文档智能的依赖项
-* `[audio-transcription]` 安装音频转录 wav 和 mp3 文件的依赖项
-* `[youtube-transcription]` 安装获取 YouTube 视频转录的依赖项
+* `[all]` Installs all optional dependencies
+* `[pptx]` Installs dependencies for PowerPoint files
+* `[docx]` Installs dependencies for Word files
+* `[xlsx]` Installs dependencies for Excel files
+* `[xls]` Installs dependencies for older Excel files
+* `[pdf]` Installs dependencies for PDF files
+* `[outlook]` Installs dependencies for Outlook messages
+* `[az-doc-intel]` Installs dependencies for Azure Document Intelligence
+* `[audio-transcription]` Installs dependencies for audio transcription of wav and mp3 files
+* `[youtube-transcription]` Installs dependencies for fetching YouTube video transcription
 
-### 插件
+### Plugins
 
-MarkItDown 还支持第三方插件。插件默认禁用。要列出已安装的插件：
+MarkItDown also supports 3rd-party plugins. Plugins are disabled by default. To list installed plugins:
 
 ```bash
 markitdown --list-plugins
 ```
 
-要启用插件，请使用：
+To enable plugins use:
 
 ```bash
 markitdown --use-plugins path-to-file.pdf
 ```
 
-要查找可用插件，请在 GitHub 上搜索标签 `#markitdown-plugin`。要开发插件，请参见 `packages/markitdown-sample-plugin`。
+To find available plugins, search GitHub for the hashtag `#markitdown-plugin`. To develop a plugin, see `packages/markitdown-sample-plugin`.
 
-#### markitdown-ocr 插件
+#### markitdown-ocr Plugin
 
-`markitdown-ocr` 插件为 PDF、DOCX、PPTX 和 XLSX 转换器添加了 OCR 支持，使用 LLM Vision 从嵌入式图像中提取文本——采用与 MarkItDown 已用于图像描述的相同 `llm_client` / `llm_model` 模式。无需新的 ML 库或二进制依赖项。
+The `markitdown-ocr` plugin adds OCR support to PDF, DOCX, PPTX, and XLSX converters, extracting text from embedded images using LLM Vision — the same `llm_client` / `llm_model` pattern that MarkItDown already uses for image descriptions. No new ML libraries or binary dependencies required.
 
-**安装：**
+**Installation:**
 
 ```bash
 pip install markitdown-ocr
-pip install openai  # 或任何 OpenAI 兼容的客户端
+pip install openai  # or any OpenAI-compatible client
 ```
 
-**用法：**
+**Usage:**
 
-传递与图像描述相同的 `llm_client` 和 `llm_model`：
+Pass the same `llm_client` and `llm_model` you would use for image descriptions:
 
 ```python
 from markitdown import MarkItDown
@@ -157,36 +162,36 @@ result = md.convert("document_with_images.pdf")
 print(result.text_content)
 ```
 
-如果未提供 `llm_client`，插件仍会加载，但 OCR 会被静默跳过，使用标准内置转换器。
+If no `llm_client` is provided the plugin still loads, but OCR is silently skipped and the standard built-in converter is used instead.
 
-有关详细文档，请参阅 [`packages/markitdown-ocr/README.md`](packages/markitdown-ocr/README.md)。
+See [`packages/markitdown-ocr/README.md`](packages/markitdown-ocr/README.md) for detailed documentation.
 
-## 增强功能
+## Enhanced Features (Enhanced Version)
 
-这是微软 MarkItDown 原版的增强分支，增加了以下功能：
+This is an enhanced fork of the original Microsoft MarkItDown with additional features:
 
-### 图片提取（CLI & MCP）
+### Image Extraction (CLI & MCP)
 
 ```bash
-# CLI 带图片提取
-py -m markitdown 文档.docx -o 输出.md -i --images-output-dir ./output
+# CLI with image extraction
+py -m markitdown document.docx -o output.md -i --images-output-dir ./output
 ```
 
 ```python
-# Python API 带图片提取
+# Python API with image extraction
 from markitdown import MarkItDown
 md = MarkItDown()
 result = md.convert(
-    "文档.docx",
+    "document.docx",
     extract_images=True,
     images_output_dir="output",
     images_prefix="img"
 )
 ```
 
-### MCP 服务器
+### MCP Server
 
-MCP 服务器支持图片提取和文件保存：
+The MCP server supports image extraction and file saving:
 
 ```python
 convert_to_markdown(
@@ -197,37 +202,37 @@ convert_to_markdown(
 )
 ```
 
-### 其他修复
+### Additional Fixes
 
-- **rowspan/colspan 展开**：表格合并单元格正确展开
-- **表格结构修复**：移除空行和重复分隔线
-- **XLSX 增强**：处理合并单元格、检测表头、清理 NaN 值
+- **rowspan/colspan expansion**: Merged table cells are properly expanded
+- **Table structure fix**: Empty rows and duplicate separators are removed
+- **XLSX enhancements**: Handles merged cells, detects headers, cleans NaN values
 
-完整文档请参阅 [README_ENHANCED.md](./README_ENHANCED.md)。
+For full documentation, see [README_ENHANCED.md](./README_ENHANCED.md).
 
-### Azure 文档智能
+### Azure Document Intelligence
 
-要使用 Microsoft 文档智能进行转换：
+To use Microsoft Document Intelligence for conversion:
 
 ```bash
 markitdown path-to-file.pdf -o document.md -d -e "<document_intelligence_endpoint>"
 ```
 
-有关如何设置 Azure 文档智能资源的更多信息，请参见[此处](https://learn.microsoft.com/zh-cn/azure/ai-services/document-intelligence/how-to-guides/create-document-intelligence-resource?view=doc-intel-4.0.0)。
+More information about how to set up an Azure Document Intelligence Resource can be found [here](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/how-to-guides/create-document-intelligence-resource?view=doc-intel-4.0.0)
 
 ### Python API
 
-Python 中的基本用法：
+Basic usage in Python:
 
 ```python
 from markitdown import MarkItDown
 
-md = MarkItDown(enable_plugins=False) # 设置为 True 以启用插件
+md = MarkItDown(enable_plugins=False) # Set to True to enable plugins
 result = md.convert("test.xlsx")
 print(result.text_content)
 ```
 
-Python 中的文档智能转换：
+Document Intelligence conversion in Python:
 
 ```python
 from markitdown import MarkItDown
@@ -237,14 +242,14 @@ result = md.convert("test.pdf")
 print(result.text_content)
 ```
 
-要将大型语言模型用于图像描述（目前仅适用于 pptx 和图像文件），请提供 `llm_client` 和 `llm_model`：
+To use Large Language Models for image descriptions (currently only for pptx and image files), provide `llm_client` and `llm_model`:
 
 ```python
 from markitdown import MarkItDown
 from openai import OpenAI
 
 client = OpenAI()
-md = MarkItDown(llm_client=client, llm_model="gpt-4o", llm_prompt="可选的自定义提示")
+md = MarkItDown(llm_client=client, llm_model="gpt-4o", llm_prompt="optional custom prompt")
 result = md.convert("example.jpg")
 print(result.text_content)
 ```
@@ -256,60 +261,66 @@ docker build -t markitdown:latest .
 docker run --rm -i markitdown:latest < ~/your-file.pdf > output.md
 ```
 
-## 贡献
+## Contributing
 
-本项目欢迎贡献和建议。大多数贡献需要您同意贡献者许可协议（CLA），声明您有权并实际授予我们使用您的贡献的权利。有关详细信息，请访问 https://cla.opensource.microsoft.com。
+This project welcomes contributions and suggestions. Most contributions require you to agree to a
+Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
+the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
 
-当您提交拉取请求时，CLA 机器人将自动确定您是否需要提供 CLA，并相应地装饰 PR（例如，状态检查、评论）。只需按照机器人提供的说明操作即可。您只需要在所有使用 CLA 的 repos 中执行此操作一次。
+When you submit a pull request, a CLA bot will automatically determine whether you need to provide
+a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
+provided by the bot. You will only need to do this once across all repos using our CLA.
 
-本项目采用 [Microsoft 开源行为准则](https://opensource.microsoft.com/codeofconduct/)。
-有关详细信息，请参阅[行为准则常见问题](https://opensource.microsoft.com/codeofconduct/faq/)或通过 [opencode@microsoft.com](mailto:opencode@microsoft.com) 联系，提出任何其他问题或评论。
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
+For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
+contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-### 如何贡献
+### How to Contribute
 
-您可以通过查看问题或帮助审查 PR 来提供帮助。任何问题或 PR 都欢迎，但我们也标记了一些为"开放贡献"和"开放审查"，以帮助促进社区贡献。当然，这些只是建议，欢迎您以任何您喜欢的方式做出贡献。
+You can help by looking at issues or helping review PRs. Any issue or PR is welcome, but we have also marked some as 'open for contribution' and 'open for reviewing' to help facilitate community contributions. These are of course just suggestions and you are welcome to contribute in any way you like.
 
 <div align="center">
 
-|            | 所有                                                            | 特别需要社区帮助                                                                                                                              |
+|            | All                                                          | Especially Needs Help from Community                                                                                                      |
 | ---------- | ------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| **问题**   | [所有问题](https://github.com/microsoft/markitdown/issues)   | [开放贡献的问题](https://github.com/microsoft/markitdown/issues?q=is%3Aissue+is%3Aopen+label%3A%22open+for+contribution%22)             |
-| **PRs**    | [所有 PR](https://github.com/microsoft/markitdown/pulls)     | [开放审查的 PR](https://github.com/microsoft/markitdown/pulls?q=is%3Apr+is%3Aopen+label%3A%22open+for+reviewing%22)                     |
+| **Issues** | [All Issues](https://github.com/microsoft/markitdown/issues) | [Issues open for contribution](https://github.com/microsoft/markitdown/issues?q=is%3Aissue+is%3Aopen+label%3A%22open+for+contribution%22) |
+| **PRs**    | [All PRs](https://github.com/microsoft/markitdown/pulls)     | [PRs open for reviewing](https://github.com/microsoft/markitdown/pulls?q=is%3Apr+is%3Aopen+label%3A%22open+for+reviewing%22)              |
 
 </div>
 
-### 运行测试和检查
+### Running Tests and Checks
 
-- 导航到 MarkItDown 包：
+- Navigate to the MarkItDown package:
 
   ```sh
   cd packages/markitdown
   ```
 
-- 在您的环境中安装 `hatch` 并运行测试：
+- Install `hatch` in your environment and run tests:
 
   ```sh
-  pip install hatch  # 其他安装 hatch 的方式：https://hatch.pypa.io/dev/install/
+  pip install hatch  # Other ways of installing hatch: https://hatch.pypa.io/dev/install/
   hatch shell
   hatch test
   ```
 
-  （替代方案）使用已安装所有依赖项的 Devcontainer：
+  (Alternative) Use the Devcontainer which has all the dependencies installed:
 
   ```sh
-  # 在 Devcontainer 中重新打开项目并运行：
+  # Reopen the project in Devcontainer and run:
   hatch test
   ```
 
-- 提交 PR 前运行预提交检查：`pre-commit run --all-files`
+- Run pre-commit checks before submitting a PR: `pre-commit run --all-files`
 
-### 贡献第三方插件
+### Contributing 3rd-party Plugins
 
-您还可以通过创建和共享第三方插件来做出贡献。详见 `packages/markitdown-sample-plugin`。
+You can also contribute by creating and sharing 3rd party plugins. See `packages/markitdown-sample-plugin` for more details.
 
-## 商标
+## Trademarks
 
-本项目可能包含项目、产品或服务的商标或标识。经授权使用 Microsoft 商标或标识必须遵守并遵循
-[Microsoft 的商标和品牌指南](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general)。
-在修改后的版本中使用 Microsoft 商标或标识不得造成混淆或暗示 Microsoft 赞助。
-任何第三方商标或标识的使用均须遵守这些第三方的政策。
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft
+trademarks or logos is subject to and must follow
+[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
+Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
+Any use of third-party trademarks or logos are subject to those third-party's policies.
