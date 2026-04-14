@@ -161,6 +161,50 @@ print(result.text_content)
 
 有关详细文档，请参阅 [`packages/markitdown-ocr/README.md`](packages/markitdown-ocr/README.md)。
 
+## 增强功能
+
+这是微软 MarkItDown 原版的增强分支，增加了以下功能：
+
+### 图片提取（CLI & MCP）
+
+```bash
+# CLI 带图片提取
+py -m markitdown 文档.docx -o 输出.md -i --images-output-dir ./output
+```
+
+```python
+# Python API 带图片提取
+from markitdown import MarkItDown
+md = MarkItDown()
+result = md.convert(
+    "文档.docx",
+    extract_images=True,
+    images_output_dir="output",
+    images_prefix="img"
+)
+```
+
+### MCP 服务器
+
+MCP 服务器支持图片提取和文件保存：
+
+```python
+convert_to_markdown(
+    uri="file:///path/to/doc.docx",
+    extract_images=True,
+    images_output_dir="/path/to/output",
+    output_markdown_path="/path/to/output/doc.md"
+)
+```
+
+### 其他修复
+
+- **rowspan/colspan 展开**：表格合并单元格正确展开
+- **表格结构修复**：移除空行和重复分隔线
+- **XLSX 增强**：处理合并单元格、检测表头、清理 NaN 值
+
+完整文档请参阅 [README_ENHANCED.md](./README_ENHANCED.md)。
+
 ### Azure 文档智能
 
 要使用 Microsoft 文档智能进行转换：

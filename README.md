@@ -166,6 +166,50 @@ If no `llm_client` is provided the plugin still loads, but OCR is silently skipp
 
 See [`packages/markitdown-ocr/README.md`](packages/markitdown-ocr/README.md) for detailed documentation.
 
+## Enhanced Features (Enhanced Version)
+
+This is an enhanced fork of the original Microsoft MarkItDown with additional features:
+
+### Image Extraction (CLI & MCP)
+
+```bash
+# CLI with image extraction
+py -m markitdown document.docx -o output.md -i --images-output-dir ./output
+```
+
+```python
+# Python API with image extraction
+from markitdown import MarkItDown
+md = MarkItDown()
+result = md.convert(
+    "document.docx",
+    extract_images=True,
+    images_output_dir="output",
+    images_prefix="img"
+)
+```
+
+### MCP Server
+
+The MCP server supports image extraction and file saving:
+
+```python
+convert_to_markdown(
+    uri="file:///path/to/doc.docx",
+    extract_images=True,
+    images_output_dir="/path/to/output",
+    output_markdown_path="/path/to/output/doc.md"
+)
+```
+
+### Additional Fixes
+
+- **rowspan/colspan expansion**: Merged table cells are properly expanded
+- **Table structure fix**: Empty rows and duplicate separators are removed
+- **XLSX enhancements**: Handles merged cells, detects headers, cleans NaN values
+
+For full documentation, see [README_ENHANCED.md](./README_ENHANCED.md).
+
 ### Azure Document Intelligence
 
 To use Microsoft Document Intelligence for conversion:
