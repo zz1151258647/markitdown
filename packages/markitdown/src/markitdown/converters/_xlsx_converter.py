@@ -310,10 +310,10 @@ class XlsxConverter(DocumentConverter):
                 if len(df) > 0 and len(df.columns) >= 2:
                     # Get non-empty values in row (excluding first column)
                     def is_sub_header_row(row):
-                        if row[0] is not None and str(row[0]).strip() != "":
+                        if row.iloc[0] is not None and str(row.iloc[0]).strip() != "":
                             return False  # First col has value, not a sub-header
                         # Check if other columns have content
-                        other_values = [row[i] for i in range(1, len(row)) if row[i] is not None and str(row[i]).strip() != ""]
+                        other_values = [row.iloc[i] for i in range(1, len(row)) if row.iloc[i] is not None and str(row.iloc[i]).strip() != ""]
                         if not other_values:
                             return True  # No other content
                         # Check if all non-empty values are the same
