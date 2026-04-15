@@ -63,7 +63,21 @@
       "mcp__markitdown__convert_to_markdown",
       "Bash(mv README.md README_en.md)",
       "Bash(mv README_zh.md README.md)",
-      "Bash(mv README_en.md README_zh.md)"
+      "Bash(mv README_en.md README_zh.md)",
+      "Bash(ls -la dist/)",
+      "Bash(dir dist:*)",
+      "Bash(gh auth:*)",
+      "Bash(unzip -l markitdown_mcp-0.0.1a5-py3-none-any.whl)",
+      "Bash(git tag:*)",
+      "Bash(markitdown-mcp:*)",
+      "Bash(pip3 show *)",
+      "Bash(where python *)",
+      "Bash(C:/Users/zz115/AppData/Local/Microsoft/WindowsApps/python.exe *)",
+      "Bash(mkdir -p C:/Users/zz115/.claude/skills/markitdown)",
+      "Bash(cp H:/Development/markitdown/.claude/skills/markitdown/SKILL.md C:/Users/zz115/.claude/skills/markitdown/SKILL.md)",
+      "Bash(pip list *)",
+      "Bash(python3 -m pip show markitdown)",
+      "Bash(chardet \"c:/Users/zz115/Downloads/EDS9000产品文档/EDS9000产品功能清单V7.1.0_new.md\")"
     ]
   }
 }
