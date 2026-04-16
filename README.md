@@ -1,20 +1,103 @@
-# MarkItDown
+# MarkItDown Enhanced
 
 [English](./README_en.md) | 中文版
 
 [![PyPI](https://img.shields.io/pypi/v/markitdown.svg)](https://pypi.org/project/markitdown/)
 ![PyPI - Downloads](https://img.shields.io/pypi/dd/markitdown)
+[![Official Repo](https://img.shields.io/badge/官方仓库-microsoft/markitdown-blue)](https://github.com/microsoft/markitdown)
+
+> [!NOTE]
+> 这是 [微软 MarkItDown](https://github.com/microsoft/markitdown) 的增强分支，专注于表格转换、图片提取和 MCP 支持。
+
+## 与官方版本的区别
+
+| 功能 | 官方版 | 增强版 |
+|------|--------|--------|
+| 表格转换 | 基础支持 | 完整支持 rowspan/colspan 展开、合并单元格处理 |
+| 图片提取 | 不支持 | CLI 和 MCP 全面支持 |
+| XLSX 增强 | 无 | 处理合并单元格、检测表头、清理 NaN 值 |
+| MCP 服务器 | 有 | 有（功能更丰富）|
+
+## 安装
+
+从 PyPI 安装（官方版，不含增强功能）：
+```bash
+pip install 'markitdown[all]'
+```
+
+从本仓库安装（增强版）：
+```bash
+git clone https://github.com/zz1151258647/markitdown.git
+cd markitdown
+pip install -e 'packages/markitdown[all]'
+```
+
+## 快速开始
+
+### 命令行
+
+```bash
+markitdown path-to-file.pdf -o document.md
+```
+
+### Python API
+
+```python
+from markitdown import MarkItDown
+
+md = MarkItDown()
+result = md.convert("document.docx")
+print(result.text_content)
+```
+
+## 增强功能详解
+
+### 图片提取（CLI & MCP）
+
+```bash
+# CLI 带图片提取
+py -m markitdown 文档.docx -o 输出.md -i --images-output-dir ./output
+```
+
+```python
+# Python API 带图片提取
+from markitdown import MarkItDown
+md = MarkItDown()
+result = md.convert(
+    "文档.docx",
+    extract_images=True,
+    images_output_dir="output",
+    images_prefix="img"
+)
+```
+
+### MCP 服务器
+
+MCP 服务器支持图片提取和文件保存：
+
+```python
+convert_to_markdown(
+    uri="file:///path/to/doc.docx",
+    extract_images=True,
+    images_output_dir="/path/to/output",
+    output_markdown_path="/path/to/output/doc.md"
+)
+```
 
 > [!TIP]
 > MarkItDown 现已提供 MCP（Model Context Protocol）服务器，可与 Claude Desktop 等 LLM 应用集成。详见 [markitdown-mcp](https://github.com/zz1151258647/markitdown/tree/main/packages/markitdown-mcp)。
 
-> [!IMPORTANT]
-> 0.0.1 到 0.1.0 之间的重大变更：
-> * 依赖项现已按可选功能组组织（详见下文）。使用 `pip install 'markitdown[all]'` 可获得向后兼容的行为。
-> * `convert_stream()` 现要求二进制文件对象（例如以二进制模式打开的文件或 `io.BytesIO` 对象）。这与之前的版本相比是重大变更，之前它也接受文本文件对象，如 `io.StringIO`。
-> * DocumentConverter 类的接口已更改，改为从文件类流读取而非文件路径。**不再创建临时文件**。如果您是插件维护者或自定义 DocumentConverter 的开发者，您可能需要更新代码。否则，如果您只使用 MarkItDown 类或 CLI（如此处示例所示），则无需更改任何内容。
+### 其他修复
 
-MarkItDown 是一个轻量级的 Python 工具，用于将各种文件转换为 Markdown 格式，以便在 LLM 和相关文本分析流程中使用。为此，它最类似于 [textract](https://github.com/deanmalmgren/textract)，但专注于将重要文档结构和内容保留为 Markdown 格式（包括：标题、列表、表格、链接等）。虽然输出通常相当可观且对人类友好，但它旨在供文本分析工具使用——对于人工消费的高保真文档转换可能不是最佳选择。
+- **rowspan/colspan 展开**：表格合并单元格正确展开
+- **表格结构修复**：移除空行和重复分隔线
+- **XLSX 增强**：处理合并单元格、检测表头、清理 NaN 值
+
+完整文档请参阅 [README_ENHANCED.md](./README_ENHANCED.md)。
+
+---
+
+## 完整功能列表
 
 MarkItDown 目前支持以下格式的转换：
 
