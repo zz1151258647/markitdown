@@ -5,7 +5,7 @@
 > [!IMPORTANT]
 > MarkItDown 是一个 Python 包和命令行工具，用于将各种文件转换为 Markdown（例如，用于索引、文本分析等）。
 >
-> 更多信息和完整文档，请参阅 GitHub 上的项目 [README.md](https://github.com/microsoft/markitdown)。
+> 更多信息和完整文档，请参阅 GitHub 上的项目 [README.md](https://github.com/zz1151258647/markitdown)。
 
 ## 安装
 
@@ -18,7 +18,7 @@ pip install markitdown[all]
 从源代码：
 
 ```bash
-git clone git@github.com:microsoft/markitdown.git
+git clone git@github.com:zz1151258647/markitdown.git
 cd markitdown
 pip install -e packages/markitdown[all]
 ```
@@ -43,7 +43,7 @@ print(result.text_content)
 
 ### 更多信息
 
-更多信息和完整文档，请参阅 GitHub 上的项目 [README.md](https://github.com/microsoft/markitdown)。
+更多信息和完整文档，请参阅 GitHub 上的项目 [README.md](https://github.com/zz1151258647/markitdown)。
 
 ## 商标
 

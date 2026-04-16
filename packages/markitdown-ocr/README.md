@@ -179,14 +179,14 @@ pytest tests/ -v
 ### Building from Source
 
 ```bash
-git clone https://github.com/microsoft/markitdown.git
+git clone https://github.com/zz1151258647/markitdown.git
 cd markitdown/packages/markitdown-ocr
 pip install -e .
 ```
 
 ## Contributing
 
-Contributions are welcome! See the [MarkItDown repository](https://github.com/microsoft/markitdown) for guidelines.
+Contributions are welcome! See the [MarkItDown repository](https://github.com/zz1151258647/markitdown) for guidelines.
 
 ## License
 

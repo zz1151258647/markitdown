@@ -4,10 +4,9 @@
 
 [![PyPI](https://img.shields.io/pypi/v/markitdown.svg)](https://pypi.org/project/markitdown/)
 ![PyPI - Downloads](https://img.shields.io/pypi/dd/markitdown)
-[![Built by AutoGen Team](https://img.shields.io/badge/Built%20by-AutoGen%20Team-blue)](https://github.com/microsoft/autogen)
 
 > [!TIP]
-> MarkItDown 现已提供 MCP（Model Context Protocol）服务器，可与 Claude Desktop 等 LLM 应用集成。详见 [markitdown-mcp](https://github.com/microsoft/markitdown/tree/main/packages/markitdown-mcp)。
+> MarkItDown 现已提供 MCP（Model Context Protocol）服务器，可与 Claude Desktop 等 LLM 应用集成。详见 [markitdown-mcp](https://github.com/zz1151258647/markitdown/tree/main/packages/markitdown-mcp)。
 
 > [!IMPORTANT]
 > 0.0.1 到 0.1.0 之间的重大变更：
@@ -66,7 +65,7 @@ conda activate markitdown
 要安装 MarkItDown，请使用 pip：`pip install 'markitdown[all]'`。或者，您也可以从源代码安装：
 
 ```bash
-git clone git@github.com:microsoft/markitdown.git
+git clone git@github.com:zz1151258647/markitdown.git
 cd markitdown
 pip install -e 'packages/markitdown[all]'
 ```
@@ -273,8 +272,8 @@ docker run --rm -i markitdown:latest < ~/your-file.pdf > output.md
 
 |            | 所有                                                            | 特别需要社区帮助                                                                                                                              |
 | ---------- | ------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| **问题**   | [所有问题](https://github.com/microsoft/markitdown/issues)   | [开放贡献的问题](https://github.com/microsoft/markitdown/issues?q=is%3Aissue+is%3Aopen+label%3A%22open+for+contribution%22)             |
-| **PRs**    | [所有 PR](https://github.com/microsoft/markitdown/pulls)     | [开放审查的 PR](https://github.com/microsoft/markitdown/pulls?q=is%3Apr+is%3Aopen+label%3A%22open+for+reviewing%22)                     |
+| **问题**   | [所有问题](https://github.com/zz1151258647/markitdown/issues)   | [开放贡献的问题](https://github.com/zz1151258647/markitdown/issues?q=is%3Aissue+is%3Aopen+label%3A%22open+for+contribution%22)             |
+| **PRs**    | [所有 PR](https://github.com/zz1151258647/markitdown/pulls)     | [开放审查的 PR](https://github.com/zz1151258647/markitdown/pulls?q=is%3Apr+is%3Aopen+label%3A%22open+for+reviewing%22)                     |
 
 </div>
 

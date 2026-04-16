@@ -4,10 +4,9 @@ English | [中文版](./README.md)
 
 [![PyPI](https://img.shields.io/pypi/v/markitdown.svg)](https://pypi.org/project/markitdown/)
 ![PyPI - Downloads](https://img.shields.io/pypi/dd/markitdown)
-[![Built by AutoGen Team](https://img.shields.io/badge/Built%20by-AutoGen%20Team-blue)](https://github.com/microsoft/autogen)
 
 > [!TIP]
-> MarkItDown now offers an MCP (Model Context Protocol) server for integration with LLM applications like Claude Desktop. See [markitdown-mcp](https://github.com/microsoft/markitdown/tree/main/packages/markitdown-mcp) for more information.
+> MarkItDown now offers an MCP (Model Context Protocol) server for integration with LLM applications like Claude Desktop. See [markitdown-mcp](https://github.com/zz1151258647/markitdown/tree/main/packages/markitdown-mcp) for more information.
 
 > [!IMPORTANT]
 > Breaking changes between 0.0.1 to 0.1.0:
@@ -71,7 +70,7 @@ conda activate markitdown
 To install MarkItDown, use pip: `pip install 'markitdown[all]'`. Alternatively, you can install it from the source:
 
 ```bash
-git clone git@github.com:microsoft/markitdown.git
+git clone git@github.com:zz1151258647/markitdown.git
 cd markitdown
 pip install -e 'packages/markitdown[all]'
 ```
@@ -283,8 +282,8 @@ You can help by looking at issues or helping review PRs. Any issue or PR is welc
 
 |            | All                                                          | Especially Needs Help from Community                                                                                                      |
 | ---------- | ------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| **Issues** | [All Issues](https://github.com/microsoft/markitdown/issues) | [Issues open for contribution](https://github.com/microsoft/markitdown/issues?q=is%3Aissue+is%3Aopen+label%3A%22open+for+contribution%22) |
-| **PRs**    | [All PRs](https://github.com/microsoft/markitdown/pulls)     | [PRs open for reviewing](https://github.com/microsoft/markitdown/pulls?q=is%3Apr+is%3Aopen+label%3A%22open+for+reviewing%22)              |
+| **Issues** | [All Issues](https://github.com/zz1151258647/markitdown/issues) | [Issues open for contribution](https://github.com/zz1151258647/markitdown/issues?q=is%3Aissue+is%3Aopen+label%3A%22open+for+contribution%22) |
+| **PRs**    | [All PRs](https://github.com/zz1151258647/markitdown/pulls)     | [PRs open for reviewing](https://github.com/zz1151258647/markitdown/pulls?q=is%3Apr+is%3Aopen+label%3A%22open+for+reviewing%22)              |
 
 </div>
 
