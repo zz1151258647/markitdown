@@ -2,8 +2,6 @@
 
 [English](./README_en.md) | 中文版
 
-[![PyPI](https://img.shields.io/pypi/v/markitdown-z.svg)](https://pypi.org/project/markitdown-z/)
-![PyPI - Downloads](https://img.shields.io/pypi/dd/markitdown-z)
 [![Official Repo](https://img.shields.io/badge/官方仓库-microsoft/markitdown-blue)](https://github.com/microsoft/markitdown)
 
 > [!NOTE]
@@ -20,13 +18,7 @@
 
 ## 安装
 
-### 从 PyPI 安装（推荐）
-
-```bash
-pip install markitdown-z
-```
-
-### 从 GitHub Release 安装
+### 从 GitHub Release 安装（推荐）
 
 ```bash
 pip install https://github.com/zz1151258647/markitdown/releases/download/v0.1.5.post3/markitdown_z-0.1.5.post3-py3-none-any.whl
