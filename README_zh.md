@@ -1,22 +1,13 @@
-# MarkItDown
+# markitdown-z
 
 English | [中文版](./README.md)
 
-[![PyPI](https://img.shields.io/pypi/v/markitdown.svg)](https://pypi.org/project/markitdown/)
-![PyPI - Downloads](https://img.shields.io/pypi/dd/markitdown)
+> [!NOTE]
+> This is an enhanced fork of [Microsoft MarkItDown](https://github.com/microsoft/markitdown), focused on table conversion, image extraction, and MCP support.
 
-> [!TIP]
-> MarkItDown now offers an MCP (Model Context Protocol) server for integration with LLM applications like Claude Desktop. See [markitdown-mcp](https://github.com/zz1151258647/markitdown/tree/main/packages/markitdown-mcp) for more information.
+markitdown-z is a lightweight Python utility for converting various files to Markdown for use with LLMs and related text analysis pipelines. This is an enhanced version with additional features like rowspan/colspan table support, image extraction, and more.
 
-> [!IMPORTANT]
-> Breaking changes between 0.0.1 to 0.1.0:
-> * Dependencies are now organized into optional feature-groups (further details below). Use `pip install 'markitdown[all]'` to have backward-compatible behavior.
-> * convert\_stream() now requires a binary file-like object (e.g., a file opened in binary mode, or an io.BytesIO object). This is a breaking change from the previous version, where it previously also accepted text file-like objects, like io.StringIO.
-> * The DocumentConverter class interface has changed to read from file-like streams rather than file paths. *No temporary files are created anymore*. If you are the maintainer of a plugin, or custom DocumentConverter, you likely need to update your code. Otherwise, if only using the MarkItDown class or CLI (as in these examples), you should not need to change anything.
-
-MarkItDown is a lightweight Python utility for converting various files to Markdown for use with LLMs and related text analysis pipelines. To this end, it is most comparable to [textract](https://github.com/deanmalmgren/textract), but with a focus on preserving important document structure and content as Markdown (including: headings, lists, tables, links, etc.) While the output is often reasonably presentable and human-friendly, it is meant to be consumed by text analysis tools -- and may not be the best option for high-fidelity document conversions for human consumption.
-
-MarkItDown currently supports the conversion from:
+markitdown-z currently supports the conversion from:
 
 - PDF
 - PowerPoint
@@ -67,12 +58,18 @@ conda activate markitdown
 
 ## Installation
 
-To install MarkItDown, use pip: `pip install 'markitdown[all]'`. Alternatively, you can install it from the source:
+### From GitHub Release (Recommended)
 
 ```bash
-git clone git@github.com:zz1151258647/markitdown.git
+pip install https://github.com/zz1151258647/markitdown/releases/download/v0.1.5.post3/markitdown_z-0.1.5.post3-py3-none-any.whl
+```
+
+### From source (Development)
+
+```bash
+git clone https://github.com/zz1151258647/markitdown.git
 cd markitdown
-pip install -e 'packages/markitdown[all]'
+pip install -e packages/markitdown
 ```
 
 ## Usage
@@ -80,19 +77,19 @@ pip install -e 'packages/markitdown[all]'
 ### Command-Line
 
 ```bash
-markitdown path-to-file.pdf > document.md
+markitdown-z path-to-file.pdf > document.md
 ```
 
 Or use `-o` to specify the output file:
 
 ```bash
-markitdown path-to-file.pdf -o document.md
+markitdown-z path-to-file.pdf -o document.md
 ```
 
 You can also pipe content:
 
 ```bash
-cat path-to-file.pdf | markitdown
+cat path-to-file.pdf | markitdown-z
 ```
 
 ### Optional Dependencies
@@ -122,13 +119,13 @@ At the moment, the following optional dependencies are available:
 MarkItDown also supports 3rd-party plugins. Plugins are disabled by default. To list installed plugins:
 
 ```bash
-markitdown --list-plugins
+markitdown-z --list-plugins
 ```
 
 To enable plugins use:
 
 ```bash
-markitdown --use-plugins path-to-file.pdf
+markitdown-z --use-plugins path-to-file.pdf
 ```
 
 To find available plugins, search GitHub for the hashtag `#markitdown-plugin`. To develop a plugin, see `packages/markitdown-sample-plugin`.
@@ -149,7 +146,7 @@ pip install openai  # or any OpenAI-compatible client
 Pass the same `llm_client` and `llm_model` you would use for image descriptions:
 
 ```python
-from markitdown import MarkItDown
+from markitdown_z import MarkItDown
 from openai import OpenAI
 
 md = MarkItDown(
@@ -173,12 +170,12 @@ This is an enhanced fork of the original Microsoft MarkItDown with additional fe
 
 ```bash
 # CLI with image extraction
-py -m markitdown document.docx -o output.md -i --images-output-dir ./output
+py -m markitdown_z document.docx -o output.md -i --images-output-dir ./output
 ```
 
 ```python
 # Python API with image extraction
-from markitdown import MarkItDown
+from markitdown_z import MarkItDown
 md = MarkItDown()
 result = md.convert(
     "document.docx",
@@ -224,7 +221,7 @@ More information about how to set up an Azure Document Intelligence Resource can
 Basic usage in Python:
 
 ```python
-from markitdown import MarkItDown
+from markitdown_z import MarkItDown
 
 md = MarkItDown(enable_plugins=False) # Set to True to enable plugins
 result = md.convert("test.xlsx")
@@ -234,7 +231,7 @@ print(result.text_content)
 Document Intelligence conversion in Python:
 
 ```python
-from markitdown import MarkItDown
+from markitdown_z import MarkItDown
 
 md = MarkItDown(docintel_endpoint="<document_intelligence_endpoint>")
 result = md.convert("test.pdf")
@@ -244,7 +241,7 @@ print(result.text_content)
 To use Large Language Models for image descriptions (currently only for pptx and image files), provide `llm_client` and `llm_model`:
 
 ```python
-from markitdown import MarkItDown
+from markitdown_z import MarkItDown
 from openai import OpenAI
 
 client = OpenAI()
