@@ -1,9 +1,9 @@
-# MarkItDown Enhanced
+# markitdown-z
 
 [English](./README_en.md) | 中文版
 
-[![PyPI](https://img.shields.io/pypi/v/markitdown.svg)](https://pypi.org/project/markitdown/)
-![PyPI - Downloads](https://img.shields.io/pypi/dd/markitdown)
+[![PyPI](https://img.shields.io/pypi/v/markitdown-z.svg)](https://pypi.org/project/markitdown-z/)
+![PyPI - Downloads](https://img.shields.io/pypi/dd/markitdown-z)
 [![Official Repo](https://img.shields.io/badge/官方仓库-microsoft/markitdown-blue)](https://github.com/microsoft/markitdown)
 
 > [!NOTE]
@@ -20,16 +20,24 @@
 
 ## 安装
 
-从 PyPI 安装（官方版，不含增强功能）：
+### 从 PyPI 安装（推荐）
+
 ```bash
-pip install 'markitdown[all]'
+pip install markitdown-z
 ```
 
-从本仓库安装（增强版）：
+### 从 GitHub Release 安装
+
+```bash
+pip install https://github.com/zz1151258647/markitdown/releases/download/v0.1.5.post3/markitdown_z-0.1.5.post3-py3-none-any.whl
+```
+
+### 从本仓库安装（开发版）
+
 ```bash
 git clone https://github.com/zz1151258647/markitdown.git
 cd markitdown
-pip install -e 'packages/markitdown[all]'
+pip install -e packages/markitdown
 ```
 
 ## 快速开始
@@ -37,13 +45,13 @@ pip install -e 'packages/markitdown[all]'
 ### 命令行
 
 ```bash
-markitdown path-to-file.pdf -o document.md
+markitdown-z path-to-file.pdf -o document.md
 ```
 
 ### Python API
 
 ```python
-from markitdown import MarkItDown
+from markitdown_z import MarkItDown
 
 md = MarkItDown()
 result = md.convert("document.docx")
@@ -56,12 +64,12 @@ print(result.text_content)
 
 ```bash
 # CLI 带图片提取
-py -m markitdown 文档.docx -o 输出.md -i --images-output-dir ./output
+py -m markitdown_z 文档.docx -o 输出.md -i --images-output-dir ./output
 ```
 
 ```python
 # Python API 带图片提取
-from markitdown import MarkItDown
+from markitdown_z import MarkItDown
 md = MarkItDown()
 result = md.convert(
     "文档.docx",
@@ -143,41 +151,31 @@ conda create -n markitdown python=3.12
 conda activate markitdown
 ```
 
-## 安装
-
-要安装 MarkItDown，请使用 pip：`pip install 'markitdown[all]'`。或者，您也可以从源代码安装：
-
-```bash
-git clone git@github.com:zz1151258647/markitdown.git
-cd markitdown
-pip install -e 'packages/markitdown[all]'
-```
-
 ## 使用方法
 
 ### 命令行
 
 ```bash
-markitdown path-to-file.pdf > document.md
+markitdown-z path-to-file.pdf > document.md
 ```
 
 或使用 `-o` 指定输出文件：
 
 ```bash
-markitdown path-to-file.pdf -o document.md
+markitdown-z path-to-file.pdf -o document.md
 ```
 
 您也可以通过管道传输内容：
 
 ```bash
-cat path-to-file.pdf | markitdown
+cat path-to-file.pdf | markitdown-z
 ```
 
 ### 可选依赖项
 MarkItDown 具有可选依赖项，用于激活各种文件格式。在本文档的前面部分，我们使用 `[all]` 选项安装了所有可选依赖项。但是，您也可以单独安装它们以获得更多控制。例如：
 
 ```bash
-pip install 'markitdown[pdf, docx, pptx]'
+pip install 'markitdown-z[pdf, docx, pptx]'
 ```
 
 将仅安装 PDF、DOCX 和 PPTX 文件的依赖项。
@@ -200,13 +198,13 @@ pip install 'markitdown[pdf, docx, pptx]'
 MarkItDown 还支持第三方插件。插件默认禁用。要列出已安装的插件：
 
 ```bash
-markitdown --list-plugins
+markitdown-z --list-plugins
 ```
 
 要启用插件，请使用：
 
 ```bash
-markitdown --use-plugins path-to-file.pdf
+markitdown-z --use-plugins path-to-file.pdf
 ```
 
 要查找可用插件，请在 GitHub 上搜索标签 `#markitdown-plugin`。要开发插件，请参见 `packages/markitdown-sample-plugin`。
@@ -227,7 +225,7 @@ pip install openai  # 或任何 OpenAI 兼容的客户端
 传递与图像描述相同的 `llm_client` 和 `llm_model`：
 
 ```python
-from markitdown import MarkItDown
+from markitdown_z import MarkItDown
 from openai import OpenAI
 
 md = MarkItDown(
@@ -251,12 +249,12 @@ print(result.text_content)
 
 ```bash
 # CLI 带图片提取
-py -m markitdown 文档.docx -o 输出.md -i --images-output-dir ./output
+py -m markitdown_z 文档.docx -o 输出.md -i --images-output-dir ./output
 ```
 
 ```python
 # Python API 带图片提取
-from markitdown import MarkItDown
+from markitdown_z import MarkItDown
 md = MarkItDown()
 result = md.convert(
     "文档.docx",
@@ -292,7 +290,7 @@ convert_to_markdown(
 要使用 Microsoft 文档智能进行转换：
 
 ```bash
-markitdown path-to-file.pdf -o document.md -d -e "<document_intelligence_endpoint>"
+markitdown-z path-to-file.pdf -o document.md -d -e "<document_intelligence_endpoint>"
 ```
 
 有关如何设置 Azure 文档智能资源的更多信息，请参见[此处](https://learn.microsoft.com/zh-cn/azure/ai-services/document-intelligence/how-to-guides/create-document-intelligence-resource?view=doc-intel-4.0.0)。
@@ -302,7 +300,7 @@ markitdown path-to-file.pdf -o document.md -d -e "<document_intelligence_endpoin
 Python 中的基本用法：
 
 ```python
-from markitdown import MarkItDown
+from markitdown_z import MarkItDown
 
 md = MarkItDown(enable_plugins=False) # 设置为 True 以启用插件
 result = md.convert("test.xlsx")
@@ -312,7 +310,7 @@ print(result.text_content)
 Python 中的文档智能转换：
 
 ```python
-from markitdown import MarkItDown
+from markitdown_z import MarkItDown
 
 md = MarkItDown(docintel_endpoint="<document_intelligence_endpoint>")
 result = md.convert("test.pdf")
@@ -322,7 +320,7 @@ print(result.text_content)
 要将大型语言模型用于图像描述（目前仅适用于 pptx 和图像文件），请提供 `llm_client` 和 `llm_model`：
 
 ```python
-from markitdown import MarkItDown
+from markitdown_z import MarkItDown
 from openai import OpenAI
 
 client = OpenAI()
