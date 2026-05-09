@@ -1,4 +1,4 @@
-# MarkItDown
+# markitdown-z
 
 [中文版](./README_zh.md) | English
 

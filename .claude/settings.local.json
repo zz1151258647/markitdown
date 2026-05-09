@@ -77,7 +77,17 @@
       "Bash(cp H:/Development/markitdown/.claude/skills/markitdown/SKILL.md C:/Users/zz115/.claude/skills/markitdown/SKILL.md)",
       "Bash(pip list *)",
       "Bash(python3 -m pip show markitdown)",
-      "Bash(chardet \"c:/Users/zz115/Downloads/EDS9000产品文档/EDS9000产品功能清单V7.1.0_new.md\")"
+      "Bash(chardet \"c:/Users/zz115/Downloads/EDS9000产品文档/EDS9000产品功能清单V7.1.0_new.md\")",
+      "Bash(/c/Program Files/Git/cmd/git.exe tag *)",
+      "Bash(/c/Program Files/Git/cmd/git.exe push *)",
+      "Bash(/c/Program Files/Git/cmd/git.exe checkout *)",
+      "Bash(/c/Program Files/Git/cmd/git.exe log *)",
+      "Bash(/c/Program Files/Git/cmd/git.exe branch *)",
+      "Bash(\"/c/Program Files/Git/cmd/git.exe\" show main:.claude/settings.local.json)",
+      "Bash(\"/c/Program Files/Git/cmd/git.exe\" add packages/markitdown/src/markitdown/__about__.py packages/markitdown-mcp/src/markitdown_mcp/__about__.py)",
+      "Bash(\"/c/Program Files/Git/cmd/git.exe\" commit -m \"chore: bump version to v0.1.5.post3\")",
+      "Bash(git.exe diff *)",
+      "Bash(cmd *)"
     ]
   }
 }
