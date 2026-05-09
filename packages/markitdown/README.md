@@ -9,18 +9,26 @@
 
 ## Installation
 
-From PyPI:
+## Installation
+
+### From PyPI (Recommended)
 
 ```bash
-pip install markitdown[all]
+pip install markitdown-z
 ```
 
-From source:
+### From GitHub Release
+
+```bash
+pip install https://github.com/zz1151258647/markitdown/releases/download/v0.1.5.post3/markitdown_z-0.1.5.post3-py3-none-any.whl
+```
+
+### From source
 
 ```bash
 git clone git@github.com:zz1151258647/markitdown.git
 cd markitdown
-pip install -e packages/markitdown[all]
+pip install -e packages/markitdown
 ```
 
 ## Usage
@@ -28,13 +36,13 @@ pip install -e packages/markitdown[all]
 ### Command-Line
 
 ```bash
-markitdown path-to-file.pdf > document.md
+markitdown-z path-to-file.pdf > document.md
 ```
 
 ### Python API
 
 ```python
-from markitdown import MarkItDown
+from markitdown_z import MarkItDown
 
 md = MarkItDown()
 result = md.convert("test.xlsx")
